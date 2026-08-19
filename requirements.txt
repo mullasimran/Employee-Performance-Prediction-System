@@ -1,0 +1,8 @@
+Flask
+pandas
+numpy
+scikit-learn
+joblib
+
+https://docs.google.com/document/d/1YpK3nCsnxhgu6ln0ZG8iU7OnbEPeee-UBOFzTw__PIM/edit?usp=sha
+7875687467 - Vishal Lohakare

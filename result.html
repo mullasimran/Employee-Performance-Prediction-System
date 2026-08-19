@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Performance Result</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(3, 15, 35, 0.68),
+                    rgba(8, 30, 65, 0.72)
+                ),
+                url("/static/employee-analytics.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            padding: 35px 15px;
+            color: #0f172a;
+        }
+
+        /* Main Card */
+
+        .result-card {
+            width: 100%;
+            max-width: 950px;
+            margin: auto;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 30px;
+            padding: 35px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.38);
+
+            backdrop-filter: blur(12px);
+        }
+
+        /* Header */
+
+        .top-icon {
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 22px;
+
+            background: linear-gradient(
+                135deg,
+                #0ea5e9,
+                #2563eb,
+                #4f46e5
+            );
+
+            font-size: 38px;
+
+            box-shadow:
+                0 12px 30px rgba(37, 99, 235, 0.30);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 31px;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        /* Prediction Result */
+
+        .prediction-section {
+            text-align: center;
+
+            padding: 30px 20px;
+
+            border-radius: 24px;
+
+            margin-bottom: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #e0f2fe
+                );
+
+            border: 1px solid #bfdbfe;
+        }
+
+        .prediction-title {
+            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
+
+            margin-bottom: 12px;
+        }
+
+        .rating-circle {
+            width: 125px;
+            height: 125px;
+
+            margin: auto;
+
+            border-radius: 50%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+
+            border: 8px solid #2563eb;
+
+            box-shadow:
+                0 10px 30px rgba(37, 99, 235, 0.20);
+        }
+
+        .rating-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2563eb;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .result-name {
+            margin-top: 18px;
+
+            font-size: 29px;
+            font-weight: 800;
+
+            color: #1d4ed8;
+        }
+
+        .stars {
+            margin-top: 8px;
+            font-size: 25px;
+            letter-spacing: 3px;
+        }
+
+        /* Score */
+
+        .score-area {
+            max-width: 600px;
+            margin: 22px auto 0;
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+
+            color: #475569;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .progress {
+            width: 100%;
+            height: 12px;
+
+            background: #dbeafe;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 100;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #06b6d4,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            border-radius: 20px;
+        }
+
+        /* Section Title */
+
+        .section-title {
+            font-size: 21px;
+            color: #0f172a;
+
+            margin-bottom: 17px;
+
+            font-weight: 800;
+        }
+
+        /* Employee Details */
+
+        .details-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        .detail-box {
+            padding: 17px;
+
+            border-radius: 15px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            transition: 0.25s ease;
+        }
+
+        .detail-box:hover {
+            transform: translateY(-2px);
+
+            border-color: #93c5fd;
+
+            box-shadow:
+                0 7px 18px rgba(37, 99, 235, 0.08);
+        }
+
+        .label {
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+        }
+
+        .value {
+            color: #0f172a;
+
+            font-size: 16px;
+
+            font-weight: 700;
+        }
+
+        /* Recommendation */
+
+        .recommendation-box {
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ecfeff,
+                    #eff6ff
+                );
+
+            border-left: 5px solid #2563eb;
+
+            margin-bottom: 30px;
+        }
+
+        .recommendation-box h3 {
+            color: #1d4ed8;
+
+            font-size: 18px;
+
+            margin-bottom: 9px;
+        }
+
+        .recommendation-box p {
+            color: #475569;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+        /* Report */
+
+        .report-box {
+            padding: 22px;
+
+            border-radius: 20px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e2e8f0;
+
+            margin-bottom: 30px;
+        }
+
+        .report-box h2 {
+            text-align: center;
+
+            font-size: 21px;
+
+            color: #0f172a;
+
+            margin-bottom: 20px;
+        }
+
+        .report-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 13px;
+        }
+
+        .report-item {
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .report-item span {
+            display: block;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+        .report-item strong {
+            color: #0f172a;
+
+            font-size: 15px;
+        }
+
+        /* Buttons */
+
+        .button-area {
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 15px 30px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06b6d4,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.30);
+
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 15px 30px rgba(37, 99, 235, 0.40);
+        }
+
+        /* Footer */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 18px 10px;
+                background-attachment: scroll;
+            }
+
+            .result-card {
+                padding: 24px 16px;
+                border-radius: 23px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .header p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .prediction-section {
+                padding: 25px 15px;
+            }
+
+            .rating-circle {
+                width: 110px;
+                height: 110px;
+            }
+
+            .rating-number {
+                font-size: 36px;
+            }
+
+            .result-name {
+                font-size: 25px;
+            }
+
+            .details-grid,
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="result-card">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="top-icon">
+            🎯
+        </div>
+
+        <h1>Prediction Successful!</h1>
+
+        <p>
+            AI-based Employee Performance Analysis
+        </p>
+
+    </div>
+
+
+    <!-- MAIN PREDICTION -->
+
+    <div class="prediction-section">
+
+        <div class="prediction-title">
+            ⭐ PREDICTED PERFORMANCE RATING
+        </div>
+
+        <div class="rating-circle">
+
+            <div class="rating-number">
+                {{ rating }}
+            </div>
+
+            <div class="rating-label">
+                out of 5
+            </div>
+
+        </div>
+
+
+        <div class="result-name">
+            {{ result }}
+        </div>
+
+
+        <div class="stars">
+
+            {% if rating >= 1 %}⭐{% endif %}
+            {% if rating >= 2 %}⭐{% endif %}
+            {% if rating >= 3 %}⭐{% endif %}
+            {% if rating >= 4 %}⭐{% endif %}
+            {% if rating >= 5 %}⭐{% endif %}
+
+        </div>
+
+
+        <!-- SCORE -->
+
+        <div class="score-area">
+
+            <div class="score-header">
+
+                <span>Performance Score</span>
+
+                <span>{{ rating * 20 }}%</span>
+
+            </div>
+
+            <div class="progress">
+
+               <div class="progress-bar
+{% if rating == 1 %}score-20
+{% elif rating == 2 %}score-40
+{% elif rating == 3 %}score-60
+{% elif rating == 4 %}score-80
+{% else %}score-100
+{% endif %}">
+</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPLOYEE INFORMATION -->
+
+    <h2 class="section-title">
+        👤 Employee Information
+    </h2>
+
+
+    <div class="details-grid">
+        <div class="detail-box">
+    <div class="label">👤 Employee Name</div>
+    <div class="value">{{ full_name }}</div>
+</div>
+
+        <div class="detail-box">
+            <div class="label">🏢 Department</div>
+            <div class="value">{{ department }}</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">💼 Job Title</div>
+            <div class="value">{{ job_title }}</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">📍 Location</div>
+            <div class="value">{{ location }}</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">📅 Experience</div>
+            <div class="value">{{ experience }} Years</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">📌 Employment Status</div>
+            <div class="value">{{ status }}</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">💻 Work Mode</div>
+            <div class="value">{{ work_mode }}</div>
+        </div>
+
+
+        <div class="detail-box">
+            <div class="label">💰 Salary</div>
+            <div class="value">₹{{ salary }}</div>
+        </div>
+
+    </div>
+
+
+    <!-- RECOMMENDATION -->
+
+    <div class="recommendation-box">
+
+        <h3>
+            💡 Performance Recommendation
+        </h3>
+
+        <p>
+            {{ recommendation }}
+        </p>
+
+    </div>
+
+
+    <!-- PERFORMANCE REPORT -->
+
+    <div class="report-box">
+
+        <h2>
+            📊 Employee Performance Report
+        </h2>
+
+
+        <div class="report-grid">
+
+            <div class="report-item">
+                <span>🏢 Department</span>
+                <strong>{{ department }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>💼 Job Title</span>
+                <strong>{{ job_title }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>📍 Location</span>
+                <strong>{{ location }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>⏳ Experience</span>
+                <strong>{{ experience }} Years</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>📌 Status</span>
+                <strong>{{ status }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>💻 Work Mode</span>
+                <strong>{{ work_mode }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>💰 Salary</span>
+                <strong>₹{{ salary }}</strong>
+            </div>
+
+
+            <div class="report-item">
+                <span>⭐ Performance</span>
+                <strong>{{ result }}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <div class="button-area">
+
+        <a href="/" class="btn">
+            🔄 Predict Another Employee
+        </a>
+
+    </div>
+
+
+    <div class="footer">
+        AI-Based Employee Performance Prediction System
+    </div>
+
+</div>
+
+</body>
+</html>

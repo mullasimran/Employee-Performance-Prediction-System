@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Performance Prediction System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background: #0f172a;
+        }
+
+        /* ================= TOP MENU ================= */
+
+        .top-menu {
+            width: 100%;
+            min-height: 105px;
+
+            background: linear-gradient(
+                135deg,
+                #312e81,
+                #4c1d95,
+                #701a75
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 15px;
+            line-height:1;
+            padding: 10px 20px;
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+            position: relative;
+            z-index: 10;
+
+            overflow-x: auto;
+        }
+
+        /* ================= SYSTEM NAME ================= */
+
+        .system-name {
+            font-size: 21px;
+            font-weight: 800;
+            color: white;
+
+            padding: 12px 18px;
+            margin-right: 15px;
+
+            white-space: nowrap;
+
+            letter-spacing: 0.5px;
+        }
+
+        /* ================= MENU ITEM ================= */
+
+        .menu-item {
+            min-width: 105px;
+
+            padding: 10px 15px;
+
+            text-align: center;
+            text-decoration: none;
+
+            color: #ede9fe;
+
+            border-radius: 16px;
+
+            border: 1px solid transparent;
+
+            transition: all 0.3s ease;
+
+            position: relative;
+        }
+
+        .menu-icon {
+            display: block;
+
+            font-size: 32px;
+
+            margin-bottom: 5px;
+
+            transition: 0.3s;
+        }
+
+        .menu-text {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+
+            border-color: rgba(255, 255, 255, 0.3);
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+            color: white;
+        }
+
+        .menu-item:hover .menu-icon {
+            transform: scale(1.15);
+        }
+
+        /* Logout */
+
+        .logout:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: rgba(248, 113, 113, 0.5);
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+
+            min-height: calc(100vh - 105px);
+
+            background:
+                linear-gradient(
+                    rgba(15, 23, 42, 0.35),
+                    rgba(30, 27, 75, 0.60)
+                ),
+                url("/static/employee-analytics.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            position: relative;
+        }
+
+
+        /* ================= WELCOME BOX ================= */
+
+        .welcome-box {
+
+            width: 90%;
+            max-width: 720px;
+
+            padding: 55px 45px;
+
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.16);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+
+            border-radius: 30px;
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.35);
+
+            transition: all 0.35s ease;
+        }
+
+        .welcome-box:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 30px 70px rgba(0, 0, 0, 0.45);
+        }
+
+
+        /* ================= ICON ================= */
+
+        .welcome-icon {
+
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 48px;
+
+            background: rgba(255, 255, 255, 0.2);
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.3);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.25);
+        }
+
+
+        /* ================= HEADING ================= */
+
+        .welcome-box h1 {
+
+            font-size: 40px;
+
+            line-height: 1.2;
+
+            font-weight: 800;
+
+            color: white;
+
+            margin-bottom: 18px;
+
+            text-shadow:
+                0 3px 10px rgba(0,0,0,0.35);
+        }
+
+
+        .welcome-box p {
+
+            font-size: 19px;
+
+            color: #f8fafc;
+
+            margin-bottom: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .welcome-box .subtitle {
+
+            font-size: 15px;
+
+            color: #ddd6fe;
+
+            font-weight: 500;
+
+            margin-top: 8px;
+        }
+
+
+        /* ================= DECORATION ================= */
+
+        .welcome-box::before {
+
+            content: "";
+
+            display: block;
+
+            width: 70px;
+            height: 4px;
+
+            background: white;
+
+            border-radius: 10px;
+
+            margin: 0 auto 25px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            .top-menu {
+
+                justify-content: flex-start;
+
+                min-height: 85px;
+
+                padding: 8px;
+
+                gap: 5px;
+            }
+
+            .system-name {
+                display: none;
+            }
+
+            .menu-item {
+
+                min-width: 82px;
+
+                padding: 8px 10px;
+            }
+
+            .menu-icon {
+
+                font-size: 27px;
+            }
+
+            .menu-text {
+
+                font-size: 11px;
+            }
+
+            .hero {
+
+                min-height: calc(100vh - 85px);
+
+                padding: 25px 15px;
+            }
+
+            .welcome-box {
+
+                padding: 40px 22px;
+
+                border-radius: 24px;
+            }
+
+            .welcome-icon {
+
+                width: 75px;
+                height: 75px;
+
+                font-size: 40px;
+            }
+
+            .welcome-box h1 {
+
+                font-size: 27px;
+            }
+
+            .welcome-box p {
+
+                font-size: 16px;
+            }
+
+            .welcome-box .subtitle {
+
+                font-size: 13px;
+            }
+        }
+
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media (max-width: 480px) {
+
+            .menu-item {
+
+                min-width: 72px;
+            }
+
+            .menu-icon {
+
+                font-size: 24px;
+            }
+
+            .menu-text {
+
+                font-size: 10px;
+            }
+
+            .welcome-box {
+
+                width: 95%;
+
+                padding: 35px 18px;
+            }
+
+            .welcome-box h1 {
+
+                font-size: 24px;
+            }
+        }
+        .logo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-right:15px;
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= TOP MENU ================= -->
+
+    <div class="top-menu">
+
+        <div class="system-name">
+    <img src="/static/images/logo.png" class="logo">
+                Employee Performance
+</div>
+
+
+        <a href="/" class="menu-item">
+
+            <span class="menu-icon">📝</span>
+
+            <span class="menu-text">
+                Prediction
+            </span>
+
+        </a>
+
+
+        <a href="/history" class="menu-item">
+
+            <span class="menu-icon">📋</span>
+
+            <span class="menu-text">
+                History
+            </span>
+
+        </a>
+
+
+        <a href="/dashboard" class="menu-item">
+
+            <span class="menu-icon">📈</span>
+
+            <span class="menu-text">
+                Analytics
+            </span>
+
+        </a>
+
+
+        <a href="/reports" class="menu-item">
+
+            <span class="menu-icon">📊</span>
+
+            <span class="menu-text">
+                Reports
+            </span>
+
+        </a>
+
+
+        <a href="/download" class="menu-item">
+
+            <span class="menu-icon">📥</span>
+
+            <span class="menu-text">
+                Download
+            </span>
+
+        </a>
+
+
+        <a href="/logout" class="menu-item logout">
+
+            <span class="menu-icon">🚪</span>
+
+            <span class="menu-text">
+                Logout
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <div class="hero">
+
+
+        <div class="welcome-box">
+
+
+            <div class="welcome-icon">
+                👨‍💼
+            </div>
+
+
+            <h1>
+                Employee Performance Prediction
+            </h1>
+
+
+            <p>
+                Welcome to the Admin Dashboard
+            </p>
+
+
+            <p class="subtitle">
+                Employee Performance Analytics & Management System
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

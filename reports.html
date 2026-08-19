@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Performance Reports</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ede9fe,
+                    #f5f3ff,
+                    #faf5ff
+                );
+
+            padding: 35px 20px;
+
+            color: #1e293b;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4c1d95,
+                    #6d28d9,
+                    #7e22ce
+                );
+
+            padding: 32px 25px;
+
+            border-radius: 22px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            color: white;
+
+            box-shadow:
+                0 15px 35px rgba(76, 29, 149, 0.25);
+        }
+
+        .header-icon {
+            font-size: 45px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #ede9fe;
+            font-size: 15px;
+        }
+
+
+        /* ================= SUMMARY CARDS ================= */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .card {
+
+            background: rgba(255,255,255,0.92);
+
+            padding: 23px 15px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(76, 29, 149, 0.10);
+
+            border: 1px solid #ede9fe;
+
+            transition: 0.3s;
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(76, 29, 149, 0.18);
+        }
+
+
+        .card-icon {
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .card h3 {
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .number {
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #5b21b6;
+        }
+
+
+        /* ================= REPORT BOX ================= */
+
+        .table-box {
+
+            background: rgba(255,255,255,0.95);
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 12px 35px rgba(76, 29, 149, 0.12);
+
+            border: 1px solid #ede9fe;
+
+            overflow: hidden;
+        }
+
+
+        .table-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            gap: 10px;
+        }
+
+
+        .table-header h2 {
+
+            color: #312e81;
+
+            font-size: 22px;
+        }
+
+
+        .report-count {
+
+            background: #ede9fe;
+
+            color: #5b21b6;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        /* ================= TABLE ================= */
+
+        .table-container {
+
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: separate;
+
+            border-spacing: 0;
+
+            min-width: 950px;
+        }
+
+
+        th {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4c1d95,
+                    #6d28d9
+                );
+
+            color: white;
+
+            padding: 14px;
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+
+        th:first-child {
+
+            border-top-left-radius: 10px;
+        }
+
+
+        th:last-child {
+
+            border-top-right-radius: 10px;
+        }
+
+
+        td {
+
+            padding: 13px 14px;
+
+            border-bottom: 1px solid #ede9fe;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            background: white;
+        }
+
+
+        tbody tr {
+
+            transition: 0.2s;
+        }
+
+
+        tbody tr:hover td {
+
+            background: #faf5ff;
+        }
+
+
+        /* ================= RATING ================= */
+
+        .rating {
+
+            font-weight: 800;
+
+            color: #5b21b6;
+
+            text-align: center;
+        }
+
+
+        /* ================= RESULT BADGES ================= */
+
+        .result {
+
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* Result colors based on text */
+
+        td:last-child {
+
+            font-weight: bold;
+        }
+
+
+        /* ================= BACK BUTTON ================= */
+
+        .back {
+
+            text-align: center;
+
+            margin-top: 25px;
+        }
+
+
+        .back a {
+
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d28d9,
+                    #7e22ce
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 8px 20px rgba(109, 40, 217, 0.25);
+
+            transition: 0.3s;
+        }
+
+
+        .back a:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 25px rgba(109, 40, 217, 0.35);
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            body {
+                padding: 20px 12px;
+            }
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .table-box {
+                padding: 18px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .summary {
+
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+
+                padding: 25px 15px;
+
+                border-radius: 18px;
+            }
+
+            .header-icon {
+                font-size: 38px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header p {
+                font-size: 13px;
+            }
+
+            .table-header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <div class="header-icon">
+            📊
+        </div>
+
+        <h1>
+            Performance Reports
+        </h1>
+
+        <p>
+            Employee Performance Prediction & Analysis Report
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <div class="summary">
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                📋
+            </div>
+
+            <h3>
+                Total Predictions
+            </h3>
+
+            <div class="number">
+                {{ total }}
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🏆
+            </div>
+
+            <h3>
+                Excellent
+            </h3>
+
+            <div class="number">
+                {{ excellent }}
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Good
+            </h3>
+
+            <div class="number">
+                {{ good }}
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                📈
+            </div>
+
+            <h3>
+                Average
+            </h3>
+
+            <div class="number">
+                {{ average }}
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= REPORT TABLE ================= -->
+
+    <div class="table-box">
+
+
+        <div class="table-header">
+
+            <h2>
+                📑 Prediction Report
+            </h2>
+
+            <div class="report-count">
+                {{ total }} Records
+            </div>
+
+        </div>
+
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Date & Time</th>
+
+                        <th>Employee Name</th>
+
+                        <th>Department</th>
+
+                        <th>Job Title</th>
+
+                        <th>Location</th>
+
+                        <th>Experience</th>
+
+                        <th>Status</th>
+
+                        <th>Work Mode</th>
+
+                        <th>Salary</th>
+
+                        <th>Rating</th>
+
+                        <th>Result</th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                    {% for row in reports %}
+
+
+                    <tr>
+                        <td>{{ row[0] }}</td>   <!-- ID -->
+<td>{{ row[1] }}</td>   <!-- Date & Time -->
+<td>{{ row[10] }}</td>   <!-- Employee Name -->
+<td>{{ row[2] }}</td>   <!-- Department -->
+<td>{{ row[3] }}</td>   <!-- Job Title -->
+<td>{{ row[4] }}</td>   <!-- Location -->
+<td>{{ row[5] }} Years</td>  <!-- Experience -->
+<td>{{ row[6] }}</td>   <!-- Status -->
+<td>{{ row[7] }}</td>   <!-- Work Mode -->
+<td>₹{{ row[8] }}</td>  <!-- Salary -->
+<td class="rating">⭐ {{ row[9] }}</td> <!-- Rating -->
+<td><span class="result">{{ row[11] }}</span></td> <!-- Result -->
+
+                    
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= BACK BUTTON ================= -->
+
+    <div class="back">
+
+        <a href="/admin">
+            ← Back to Admin Dashboard
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

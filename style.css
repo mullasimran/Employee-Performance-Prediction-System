@@ -1,0 +1,595 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(2, 12, 30, 0.55),
+            rgba(3, 20, 45, 0.60)
+        ),
+        url("/static/employee-analytics.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 35px 20px 45px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    backdrop-filter: blur(12px);
+
+    font-size: 38px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.header h1 {
+    font-size: 34px;
+    font-weight: 800;
+
+    color: #ffffff;
+
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.5);
+
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #dbeafe;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+/* =========================
+   FORM CARD
+========================= */
+
+.form-card {
+    width: 100%;
+    max-width: 920px;
+
+    margin: auto;
+
+    padding: 34px 42px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(239, 246, 255, 0.94)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.35);
+
+    backdrop-filter: blur(15px);
+}
+
+
+/* =========================
+   FORM HEADING
+========================= */
+
+.form-card h2 {
+    text-align: center;
+
+    color: #0f172a;
+
+    font-size: 26px;
+    font-weight: 800;
+
+    margin-bottom: 7px;
+}
+
+.subtitle {
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================
+   FORM GRID
+========================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 21px 24px;
+}
+
+
+/* =========================
+   FIELD
+========================= */
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    color: #1e293b;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+.field input,
+.field select {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 15px;
+
+    border-radius: 13px;
+
+    border: 1.5px solid #dbe3ef;
+
+    background: #f8fbff;
+
+    color: #1e293b;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all 0.25s ease;
+}
+
+.field input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* Input Hover */
+
+.field input:hover,
+.field select:hover {
+    border-color: #60a5fa;
+
+    background: #ffffff;
+}
+
+
+/* Input Focus */
+
+.field input:focus,
+.field select:focus {
+    background: #ffffff;
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10),
+        0 5px 15px rgba(37, 99, 235, 0.08);
+
+    transform: translateY(-1px);
+}
+
+
+/* Full Width */
+
+.full-width {
+    grid-column: span 2;
+}
+
+
+/* =========================
+   PREDICT BUTTON
+========================= */
+
+.button-field {
+    text-align: center;
+
+    margin-top: 30px;
+}
+
+.button-field button {
+    width: 65%;
+
+    height: 56px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #06b6d4,
+            #2563eb 55%,
+            #4f46e5
+        );
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.35);
+
+    transition: all 0.3s ease;
+}
+
+.button-field button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 35px rgba(37, 99, 235, 0.45);
+}
+
+.button-field button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================
+   HISTORY BUTTON
+========================= */
+
+.history-button {
+    text-align: center;
+
+    margin-top: 16px;
+}
+
+.history-button a {
+    display: inline-block;
+
+    padding: 11px 24px;
+
+    border-radius: 12px;
+
+    border: 1.5px solid #2563eb;
+
+    background: #ffffff;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition: all 0.25s ease;
+}
+
+.history-button a:hover {
+    background: #2563eb;
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   RECOMMENDATION BOX
+========================= */
+
+.recommendation-box {
+    margin-top: 25px;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #e0f2fe
+        );
+
+    border-left: 5px solid #2563eb;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.08);
+}
+
+.recommendation-box h3 {
+    color: #1d4ed8;
+
+    font-size: 18px;
+
+    margin-bottom: 9px;
+}
+
+.recommendation-box p {
+    color: #334155;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #e2e8f0;
+
+    font-size: 13px;
+
+    text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+    .page {
+        padding: 25px 15px 35px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .form-card {
+        padding: 28px 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .button-field button {
+        width: 100%;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    body {
+        background-attachment: scroll;
+    }
+
+    .page {
+        padding: 18px 10px 30px;
+    }
+
+    .header {
+        margin-bottom: 20px;
+    }
+
+    .icon {
+        width: 58px;
+        height: 58px;
+
+        font-size: 30px;
+
+        border-radius: 16px;
+    }
+
+    .header h1 {
+        font-size: 23px;
+
+        line-height: 1.25;
+    }
+
+    .header p {
+        font-size: 13px;
+    }
+
+    .form-card {
+        padding: 23px 16px;
+
+        border-radius: 22px;
+    }
+
+    .form-card h2 {
+        font-size: 21px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+
+        margin-bottom: 22px;
+    }
+
+    .form-grid {
+        gap: 17px;
+    }
+
+    .field input,
+    .field select {
+        height: 48px;
+
+        font-size: 14px;
+    }
+
+    .button-field {
+        margin-top: 24px;
+    }
+
+    .button-field button {
+        width: 100%;
+
+        height: 52px;
+
+        font-size: 16px;
+    }
+
+    .history-button a {
+        width: 100%;
+    }
+}
+/* =========================
+   DASHBOARD BUTTON
+========================= */
+
+.dashboard-button {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.dashboard-button a {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 12px;
+    border: 1.5px solid #7c3aed;
+    background: #ffffff;
+    color: #7c3aed;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.dashboard-button a:hover {
+    background: #7c3aed;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   ADMIN DASHBOARD BUTTON
+========================= */
+
+.admin-button {
+    display:flex;
+    justify-content:center;
+    margin-top: 16px;
+}
+
+.dashboard-btn {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 12px;
+    border: 1.5px solid #2563eb;
+    background: #ffffff;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+}
+
+.dashboard-btn:hover {
+    background: #2563eb;
+    color: white;
+    transform: translateY(-2px);
+}
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+
+    background: #0f172a;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+.datetime-box{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:15px;
+    font-size:16px;
+    font-weight:600;
+    color:white;
+}
+.employee-name{
+    font-weight: 700;
+    color: #0f172a;
+}

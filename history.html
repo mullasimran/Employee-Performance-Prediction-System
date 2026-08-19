@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction History</title>
+
+    <style>
+        * * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    padding: 35px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ccfbf1,
+            #ecfdf5,
+            #d1fae5
+        );
+
+    color: #1e293b;
+}
+
+/* Main Container */
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+
+    background: rgba(255, 255, 255, 0.90);
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(15, 118, 110, 0.18);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Header */
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.icon {
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 34px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f766e,
+            #14b8a6
+        );
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 10px 25px rgba(15, 118, 110, 0.25);
+}
+
+h1 {
+    color: #134e4a;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* Filter */
+
+.filter-card {
+    background:
+        linear-gradient(
+            135deg,
+            #f0fdfa,
+            #ecfdf5
+        );
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    border: 1px solid #99f6e4;
+
+    margin-bottom: 25px;
+}
+
+.filter-title {
+    font-size: 17px;
+    font-weight: bold;
+
+    color: #115e59;
+
+    margin-bottom: 15px;
+}
+
+.filters {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    gap: 15px;
+}
+
+.filters input,
+.filters select {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px;
+
+    border: 1px solid #99f6e4;
+
+    border-radius: 11px;
+
+    background: white;
+
+    font-size: 14px;
+
+    color: #334155;
+
+    outline: none;
+
+    transition: 0.3s;
+}
+
+.filters input:focus,
+.filters select:focus {
+    border-color: #0f766e;
+
+    box-shadow:
+        0 0 0 3px rgba(20, 184, 166, 0.15);
+}
+
+/* Table */
+
+.table-container {
+    overflow-x: auto;
+
+    border-radius: 16px;
+
+    border: 1px solid #a7f3d0;
+
+    background: #f0fdfa;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1100px;
+}
+
+th {
+    background:
+        linear-gradient(
+            135deg,
+            #0f766e,
+            #0d9488
+        );
+
+    color: white;
+
+    padding: 15px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+td {
+    padding: 14px;
+
+    border-bottom:
+        1px solid #d1fae5;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    background: #ffffff;
+}
+
+tbody tr:nth-child(even) td {
+    background: #f0fdfa;
+}
+
+tbody tr:hover td {
+    background: #ccfbf1;
+
+    transition: 0.2s;
+}
+
+/* Rating */
+
+.rating {
+    font-weight: bold;
+
+    color: #0f766e;
+
+    text-align: center;
+}
+
+
+/* Result Badges */
+
+.result-badge {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.excellent {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.good {
+    background: #ccfbf1;
+    color: #0f766e;
+}
+
+.average {
+    background: #fef3c7;
+    color: #a16207;
+}
+
+.below-average {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.poor {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Delete Button */
+
+.delete-btn {
+    display: inline-block;
+
+    padding: 8px 12px;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+/* Buttons */
+
+.button-area {
+    text-align: center;
+
+    margin-top: 25px;
+}
+
+.download-btn,
+.new-btn {
+    display: inline-block;
+
+    padding: 13px 24px;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    margin: 5px;
+
+    transition: 0.3s;
+}
+
+.download-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #15803d
+        );
+}
+
+.new-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #0f766e,
+            #0d9488
+        );
+}
+
+.download-btn:hover,
+.new-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 22px rgba(15, 118, 110, 0.25);
+}
+
+/* Footer */
+
+.footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 15px 8px;
+    }
+
+    .container {
+        padding: 20px 15px;
+
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-card {
+        padding: 16px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+}
+
+        
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="icon">
+            📋
+        </div>
+
+        <h1>Prediction History</h1>
+
+        <p class="subtitle">
+            View and manage previously predicted employee performance records
+        </p>
+
+    </div>
+
+
+    <!-- FILTER -->
+
+    <div class="filter-card">
+
+        <div class="filter-title">
+            🔍 Search & Filter Predictions
+        </div>
+
+        <div class="filters">
+
+            <input
+                type="text"
+                id="jobSearch"
+                placeholder="Search Job Title..."
+                onkeyup="filterHistory()"
+            >
+
+            <select
+                id="departmentFilter"
+                onchange="filterHistory()"
+            >
+
+                <option value="">
+                    All Departments
+                </option>
+
+                <option value="Finance">Finance</option>
+                <option value="HR">HR</option>
+                <option value="IT">IT</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Operations">Operations</option>
+                <option value="R&D">R&D</option>
+                <option value="Sales">Sales</option>
+
+            </select>
+
+
+            <select
+                id="resultFilter"
+                onchange="filterHistory()"
+            >
+
+                <option value="">
+                    All Results
+                </option>
+
+                <option value="Excellent">
+                    Excellent
+                </option>
+
+                <option value="Good">
+                    Good
+                </option>
+
+                <option value="Average">
+                    Average
+                </option>
+
+                <option value="Below Average">
+                    Below Average
+                </option>
+
+                <option value="Poor">
+                    Poor
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date & Time</th>
+                    <td>Employee Name</th>
+                    <th>Department</th>
+                    <th>Job Title</th>
+                    <th>Location</th>
+                    <th>Experience</th>
+                    <th>Status</th>
+                    <th>Work Mode</th>
+                    <th>Salary</th>
+                    <th>Rating</th>
+                    <th>Result</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for row in history %}
+
+                <tr>
+
+                    <td>
+                        {{ row[1] }}
+                    </td>
+                    <td>
+                        {{row[10]}}
+                        </td>
+
+                    <td>
+                        {{ row[2] }}
+                    </td>
+
+                    <td>
+                        {{ row[3] }}
+                    </td>
+
+                    <td>
+                        {{ row[4] }}
+                    </td>
+
+                    <td>
+                        {{ row[5] }} Years
+                    </td>
+
+                    <td>
+                        {{ row[6] }}
+                    </td>
+
+                    <td>
+                        {{ row[7] }}
+                    </td>
+
+                    <td>
+                        ₹{{ row[8] }}
+                    </td>
+
+                    <td class="rating">
+                        ⭐ {{ row[9] }}/5
+                    </td>
+
+
+                    <td>
+
+                        {% if row[10] == "Excellent" %}
+
+                        <span class="result-badge excellent">
+                            Excellent
+                        </span>
+
+                        {% elif row[10] == "Good" %}
+
+                        <span class="result-badge good">
+                            Good
+                        </span>
+
+                        {% elif row[10] == "Average" %}
+
+                        <span class="result-badge average">
+                            Average
+                        </span>
+
+                        {% elif row[10] == "Below Average" %}
+
+                        <span class="result-badge below-average">
+                            Below Average
+                        </span>
+
+                        {% else %}
+
+                        <span class="result-badge poor">
+                            Poor
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="/delete/{{ row[0] }}"
+                            onclick="return confirm('Are you sure you want to delete this prediction?');"
+                            class="delete-btn"
+                        >
+                            🗑️ Delete
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- DOWNLOAD -->
+
+    <div class="button-area">
+
+        <a
+            href="/download"
+            class="download-btn"
+        >
+            📥 Download History
+        </a>
+
+        <a
+            href="/"
+            class="new-btn"
+        >
+            🔄 Make New Prediction
+        </a>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        AI-Based Employee Performance Prediction System
+
+    </div>
+
+</div>
+
+
+<!-- FILTER SCRIPT -->
+
+<script>
+
+function filterHistory() {
+
+    let jobSearch =
+        document
+        .getElementById("jobSearch")
+        .value
+        .toLowerCase();
+
+    let department =
+        document
+        .getElementById("departmentFilter")
+        .value
+        .toLowerCase();
+
+    let result =
+        document
+        .getElementById("resultFilter")
+        .value
+        .toLowerCase();
+
+
+    let rows =
+        document.querySelectorAll("tbody tr");
+
+
+    rows.forEach(function(row) {
+
+        let jobTitle =
+            row.cells[2]
+            .textContent
+            .trim()
+            .toLowerCase();
+
+        let dept =
+            row.cells[1]
+            .textContent
+            .trim()
+            .toLowerCase();
+
+        let performance =
+            row.cells[9]
+            .textContent
+            .trim()
+            .toLowerCase();
+
+
+        let jobMatch =
+            jobTitle.includes(jobSearch);
+
+        let deptMatch =
+            department === "" ||
+            dept === department;
+
+        let resultMatch =
+            result === "" ||
+            performance.includes(result);
+
+
+        if (
+            jobMatch &&
+            deptMatch &&
+            resultMatch
+        ) {
+
+            row.style.display = "";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+
+</html>

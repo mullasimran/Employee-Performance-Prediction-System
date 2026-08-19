@@ -1,0 +1,6 @@
+id,date_time,department,job_title,location,experience,status,work_mode,salary,rating,full_name,result
+5,17-08-2026 11:51:55,IT,Product Developer,"Aaronland, Brazil",3,Active,Hybrid,450000,1,sakshi,Poor
+4,15-08-2026 16:37:57,R&D,Lab Technician,"Aaronborough, Barbados",3,Active,Work From Office,300000,4,sana,Good
+3,15-08-2026 16:30:17,R&D,Lab Technician,"Aaronborough, Barbados",3,Active,Work From Office,300000,4,sana,Good
+2,15-08-2026 16:23:34,R&D,Lab Technician,"Aaronborough, Barbados",3,Active,Work From Office,300000,4,sana,Good
+1,15-08-2026 16:16:54,Finance,Account Manager,"Aaronstad, Samoa",2,Inactive,Work From Office,400000,4,simran mulla,Good

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Employee Performance</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #ede9fe 0%, transparent 35%),
+                linear-gradient(135deg, #f8fafc, #eef2ff);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 950px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: rgba(255,255,255,0.85);
+            border-radius: 28px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 60px rgba(15,23,42,0.15);
+
+            backdrop-filter: blur(15px);
+        }
+
+        /* ================= LEFT SIDE ================= */
+
+        .login-info {
+            padding: 55px 45px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #312e81,
+                    #4338ca,
+                    #2563eb
+                );
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-info::before {
+            content: "";
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            top: -80px;
+            right: -70px;
+        }
+
+        .login-info::after {
+            content: "";
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.07);
+
+            bottom: -70px;
+            left: -60px;
+        }
+
+        .info-icon {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        .login-info h1 {
+            font-size: 34px;
+            line-height: 1.2;
+
+            margin-bottom: 18px;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-info p {
+            color: #e0e7ff;
+            line-height: 1.7;
+            font-size: 15px;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .features {
+            margin-top: 30px;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+
+            color: #eef2ff;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.15);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================= RIGHT SIDE ================= */
+
+        .login-box {
+            padding: 50px 45px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .top-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 20px;
+
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #dbeafe
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 36px;
+
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.12);
+        }
+
+        .login-box h2 {
+            text-align: center;
+
+            color: #0f172a;
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 14px 14px 45px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 12px;
+
+            background: #f8fafc;
+
+            color: #0f172a;
+
+            font-size: 15px;
+
+            transition: 0.25s;
+        }
+
+        input:focus {
+            outline: none;
+
+            background: white;
+
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 4px rgba(99,102,241,0.10);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* ================= ERROR ================= */
+
+        .error {
+            background: #fef2f2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fecaca;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4f46e5,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.25);
+
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(37,99,235,0.35);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 750px) {
+
+            .login-wrapper {
+                grid-template-columns: 1fr;
+
+                max-width: 450px;
+            }
+
+            .login-info {
+                padding: 30px 25px;
+
+                text-align: center;
+            }
+
+            .login-info h1 {
+                font-size: 27px;
+            }
+
+            .info-icon {
+                font-size: 50px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .login-box {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .login-info {
+                padding: 25px 20px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="login-wrapper">
+
+    <!-- LEFT INFORMATION PANEL -->
+
+    <div class="login-info">
+
+        <div class="info-icon">
+            📊
+        </div>
+
+        <h1>
+            Employee Performance
+            Prediction System
+        </h1>
+
+        <p>
+            AI-Based Employee Performance Analytics
+            and Management System
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <span>Machine Learning Based Prediction</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <span>Performance Analytics Dashboard</span>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📋</div>
+                <span>Prediction History & Reports</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN FORM -->
+
+    <div class="login-box">
+
+        <div class="top-icon">
+            🔐
+        </div>
+
+        <h2>Admin Login</h2>
+
+        <p class="subtitle">
+            Sign in to access the dashboard
+        </p>
+
+
+        {% if error %}
+
+        <div class="error">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>
+                    Username
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">👤</span>
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">🔑</span>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button type="submit">
+                🔓 Login to Dashboard
+            </button>
+
+        </form>
+
+
+        <div class="footer">
+            AI-Based Employee Performance Prediction
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
